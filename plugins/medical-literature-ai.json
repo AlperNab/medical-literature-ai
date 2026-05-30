@@ -1,0 +1,377 @@
+{
+  "slug": "medical-literature-ai",
+  "name": "Medical Literature Ai",
+  "domain": "Medical / Research",
+  "target_user": "Domain operator, business owner, analyst, or team member who needs this workflow executed reliably.",
+  "core_job": "Clinical question → literature intelligence",
+  "deep_features": [
+    "PICO builder",
+    "PubMed-style search",
+    "study screening",
+    "evidence table",
+    "bias appraisal",
+    "citation manager",
+    "meta-analysis extraction fields"
+  ],
+  "input_schema": [
+    {
+      "key": "clinical_question",
+      "label": "Clinical question",
+      "type": "text",
+      "required": true,
+      "help": "Affects input: Clinical question.",
+      "affects": [
+        "prompt",
+        "workflow"
+      ],
+      "default": ""
+    },
+    {
+      "key": "work_brief",
+      "label": "Work brief / source text / URL / instructions",
+      "type": "textarea",
+      "required": true,
+      "default": "",
+      "help": "Paste the material, URL, description, or instruction needed for this project.",
+      "affects": [
+        "prompt",
+        "workflow"
+      ]
+    }
+  ],
+  "customization_schema": [
+    {
+      "key": "execution_mode",
+      "label": "Execution mode",
+      "type": "select",
+      "required": false,
+      "options": [
+        "Draft",
+        "Production",
+        "Audit / strict review",
+        "JSON/API output"
+      ],
+      "default": "Production",
+      "help": "Controls strictness, depth, and output format for this project workflow.",
+      "affects": [
+        "workflow",
+        "validation",
+        "export"
+      ]
+    },
+    {
+      "key": "specialty",
+      "label": "specialty",
+      "type": "select",
+      "required": false,
+      "help": "Affects customization: specialty.",
+      "affects": [
+        "prompt",
+        "validation",
+        "workflow",
+        "export"
+      ],
+      "options": [
+        "general",
+        "ENT",
+        "cardiology",
+        "internal medicine",
+        "pediatrics",
+        "psychiatry",
+        "custom"
+      ],
+      "default": "general"
+    },
+    {
+      "key": "population",
+      "label": "population",
+      "type": "text",
+      "required": false,
+      "help": "Affects customization: population.",
+      "affects": [
+        "prompt",
+        "validation",
+        "workflow",
+        "export"
+      ],
+      "default": ""
+    },
+    {
+      "key": "study_types",
+      "label": "study types",
+      "type": "text",
+      "required": false,
+      "help": "Affects customization: study types.",
+      "affects": [
+        "prompt",
+        "validation",
+        "workflow",
+        "export"
+      ],
+      "default": ""
+    },
+    {
+      "key": "date_range",
+      "label": "date range",
+      "type": "text",
+      "required": false,
+      "help": "Affects customization: date range.",
+      "affects": [
+        "prompt",
+        "validation",
+        "workflow",
+        "export"
+      ],
+      "default": ""
+    },
+    {
+      "key": "inclusion_exclusion_criteria",
+      "label": "inclusion/exclusion criteria",
+      "type": "text",
+      "required": false,
+      "help": "Affects customization: inclusion/exclusion criteria.",
+      "affects": [
+        "prompt",
+        "validation",
+        "workflow",
+        "export"
+      ],
+      "default": ""
+    },
+    {
+      "key": "citation_style",
+      "label": "citation style",
+      "type": "select",
+      "required": false,
+      "help": "Affects customization: citation style.",
+      "affects": [
+        "prompt",
+        "validation",
+        "workflow",
+        "export"
+      ],
+      "options": [
+        "APA",
+        "Vancouver",
+        "MLA",
+        "Chicago",
+        "None"
+      ],
+      "default": "APA"
+    },
+    {
+      "key": "evidence_level",
+      "label": "evidence level",
+      "type": "select",
+      "required": false,
+      "help": "Affects customization: evidence level.",
+      "affects": [
+        "prompt",
+        "validation",
+        "workflow",
+        "export"
+      ],
+      "default": ""
+    },
+    {
+      "key": "output_format",
+      "label": "output format",
+      "type": "select",
+      "required": false,
+      "help": "Affects customization: output format.",
+      "affects": [
+        "prompt",
+        "validation",
+        "workflow",
+        "export"
+      ],
+      "options": [
+        "Markdown",
+        "JSON",
+        "CSV",
+        "PDF",
+        "DOCX",
+        "XLSX"
+      ],
+      "default": "Markdown"
+    },
+    {
+      "key": "language",
+      "label": "language",
+      "type": "select",
+      "required": false,
+      "help": "Affects customization: language.",
+      "affects": [
+        "prompt",
+        "validation",
+        "workflow",
+        "export"
+      ],
+      "options": [
+        "English",
+        "Arabic",
+        "Egyptian Arabic",
+        "French",
+        "German",
+        "Spanish"
+      ],
+      "default": "English"
+    },
+    {
+      "key": "privacy_mode",
+      "label": "privacy mode",
+      "type": "select",
+      "required": false,
+      "help": "Affects customization: privacy mode.",
+      "affects": [
+        "prompt",
+        "validation",
+        "workflow",
+        "export"
+      ],
+      "options": [
+        "cloud allowed",
+        "local only",
+        "redact sensitive data"
+      ],
+      "default": "cloud allowed"
+    },
+    {
+      "key": "confidence_threshold",
+      "label": "Confidence threshold",
+      "type": "slider",
+      "required": false,
+      "min": 0,
+      "max": 100,
+      "default": 75,
+      "help": "Items below this confidence are escalated to the human review queue.",
+      "affects": [
+        "validation",
+        "workflow",
+        "export"
+      ]
+    }
+  ],
+  "workflow_steps": [
+    "Clinical question",
+    "literature intelligence"
+  ],
+  "ui_panels": [
+    "research question builder",
+    "paper table",
+    "extraction grid",
+    "evidence synthesis",
+    "bibliography"
+  ],
+  "output_formats": [
+    "evidence table",
+    "PRISMA-style exports",
+    "summaries",
+    "citations"
+  ],
+  "integrations": [
+    "File upload",
+    "REST API",
+    "Export download",
+    "Job history",
+    "PubMed/Crossref/semantic scholar optional"
+  ],
+  "guardrails": [
+    "Show uncertainty and confidence",
+    "Cite evidence from input when possible",
+    "Human review required for legal, medical, financial, hiring, or security decisions",
+    "Do not invent facts absent from input"
+  ],
+  "recommended_models": {
+    "drafting": "fast cloud or local instruct model",
+    "reasoning": "strong reasoning model",
+    "private_documents": "local model via Ollama/LM Studio/vLLM",
+    "vision_or_pdf": "vision-capable model when image pages are used"
+  },
+  "suite": "Medical & Research Suite",
+  "implementation_status": "real_local_engine_registered",
+  "analysis_modules": [
+    "pico_extract",
+    "study_table",
+    "evidence_grade"
+  ],
+  "output_sections": [
+    "PICO",
+    "Study table",
+    "Evidence grade",
+    "Search strategy"
+  ],
+  "field_validations": [
+    {
+      "field": "language",
+      "rule": "Preserve requested language in final deliverable unless source text requires bilingual output."
+    }
+  ],
+  "scorecards": [
+    "Evidence confidence",
+    "Safety risk",
+    "Coding certainty",
+    "PHI risk",
+    "Human-review priority"
+  ],
+  "automation_hooks": [
+    {
+      "name": "save_job_snapshot",
+      "type": "internal",
+      "description": "Persist inputs, customization, uploads, output, and usage for audit/history."
+    },
+    {
+      "name": "export_pack",
+      "type": "internal",
+      "description": "Export Markdown, JSON, PDF, and DOCX from the completed job."
+    },
+    {
+      "name": "human_review_queue",
+      "type": "manual",
+      "description": "Flag low-confidence, legal/medical/finance/security/compliance-sensitive items for human review."
+    }
+  ],
+  "ux_profile": {
+    "name": "Evidence & Safety Workbench",
+    "accent": "#5eead4",
+    "layout": "Source intake → evidence extraction → safety review → study/learning output",
+    "hero": "Medical/research-safe workspace with citations, evidence grids, warning panels, and human-review gates.",
+    "components": [
+      "Evidence extraction table",
+      "Citation manager",
+      "Clinical safety warnings",
+      "Study/learning map",
+      "Human review checklist"
+    ],
+    "metrics": [
+      "Evidence completeness",
+      "Citation coverage",
+      "Safety flags",
+      "Review readiness"
+    ],
+    "quick_actions": [
+      "Extract evidence",
+      "Build citation list",
+      "Check safety warnings",
+      "Create study outputs"
+    ],
+    "review_lanes": [
+      "Collect",
+      "Extract",
+      "Verify",
+      "Review",
+      "Export"
+    ],
+    "empty_state": "Paste paper text, notes, or upload source files. Clinical/medical decisions require expert verification.",
+    "icon": "🩺",
+    "project_slug": "medical-literature-ai",
+    "domain": "Medical / Research"
+  },
+  "final_gui_status": {
+    "standalone_folder_gui": true,
+    "domain_specific_ux_profile": true,
+    "elegant_component_system": true,
+    "no_fake_live_data_policy": true,
+    "requires_real_connectors_for_external_actions": true
+  }
+}
